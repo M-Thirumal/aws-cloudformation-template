@@ -21,6 +21,7 @@ Metadata:
       embeds: []
       dependson:
         - c5709a19-bfa2-4ed4-844a-8e062686b9cb
+        - 82b1401e-a882-4588-8d67-4f113341372d
     c5709a19-bfa2-4ed4-844a-8e062686b9cb:
       size:
         width: 60
@@ -32,20 +33,28 @@ Metadata:
       embeds: []
       dependson:
         - 82b1401e-a882-4588-8d67-4f113341372d
-
+    640de22f-55bf-475f-b395-c53310d40d93:
+      size:
+        width: 140
+        height: 140
+      position:
+        x: 687
+        'y': 73
+      z: 0
+      embeds: []
+      dependson:
+        - ac57c9c7-fe46-4d39-a7ce-74a76948de6c
 Resources:
   S3NonWWWStaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: bucket-name-002
       WebsiteConfiguration:
-        #        ErrorDocument: error.html
-        #        IndexDocument: index.html
         RedirectAllRequestsTo:
           HostName: !Join
             - ''
-            - - 'www.'
-              - 'bucket-name-002'
+            - - www.
+              - bucket-name-002
       Tags:
         - Key: Created By
           Value: Thirumal
@@ -54,13 +63,12 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: c5709a19-bfa2-4ed4-844a-8e062686b9cb
-
   S3WWWStaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: !Join
         - ''
-        - - 'www.'
+        - - www.
           - !Ref S3NonWWWStaticWebsiteBucket
       WebsiteConfiguration:
         ErrorDocument: error.html
@@ -95,4 +103,15 @@ Resources:
         id: ac57c9c7-fe46-4d39-a7ce-74a76948de6c
     DependsOn:
       - S3WWWStaticWebsiteBucket
-
+#  WebsiteInHostedZone:
+#    Type: 'AWS::Route53::HostedZone'
+#    Properties:
+#      Name: !Join
+#        - ''
+#        - - www.
+#          - !Ref S3NonWWWStaticWebsiteBucket
+#    Metadata:
+#      'AWS::CloudFormation::Designer':
+#        id: 640de22f-55bf-475f-b395-c53310d40d93
+#    DependsOn:
+#      - S3PublicAccessPolicy
