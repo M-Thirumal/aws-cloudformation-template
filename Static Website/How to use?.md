@@ -3,6 +3,7 @@
 Enter your bucket name in 
 
     Resources > S3NakedStaticWebsiteBucket > Properties > BucketName
+    Resources > S3NakedStaticWebsiteBucket > WebsiteConfiguration > RedirectAllRequestsTo > HostName
   
 Remember bucket name is unique Globally
 

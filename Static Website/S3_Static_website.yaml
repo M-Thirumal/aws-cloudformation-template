@@ -37,7 +37,7 @@ Resources:
   S3NakedStaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: test-bucket-jk234
+      BucketName: bucket-name-002
       WebsiteConfiguration:
         #        ErrorDocument: error.html
         #        IndexDocument: index.html
@@ -45,7 +45,7 @@ Resources:
           HostName: !Join
             - ''
             - - 'www.'
-              - ${Resources.S3NakedStaticWebsiteBucket.Properties.BucketName}
+              - 'bucket-name-002'
       Tags:
         - Key: Created By
           Value: Thirumal
