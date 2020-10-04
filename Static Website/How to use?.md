@@ -6,4 +6,4 @@ Enter your bucket name in
   
 Remember bucket name is unique Globally
 
-[!Template Design](Template_Design.png)
+![Template Design](Template_Design.png)
