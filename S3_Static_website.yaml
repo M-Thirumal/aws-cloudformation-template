@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    82b1401e-a882-4588-8d67-4f113341372d:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 217
+        'y': 131
+      z: 0
+      embeds: []
+    ac57c9c7-fe46-4d39-a7ce-74a76948de6c:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 420
+        'y': 200
+      z: 0
+      embeds: []
+      dependson:
+        - 82b1401e-a882-4588-8d67-4f113341372d
+Resources:
+  S3StaticWebsiteBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: Thirumal-test
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 82b1401e-a882-4588-8d67-4f113341372d
+  S3PublicAccessPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: Allow
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref S3StaticWebsiteBucket
+                - /*
+            Principal: '*'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: ac57c9c7-fe46-4d39-a7ce-74a76948de6c
+    DependsOn:
+      - S3StaticWebsiteBucket
