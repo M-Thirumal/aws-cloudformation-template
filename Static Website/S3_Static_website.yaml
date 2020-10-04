@@ -20,7 +20,7 @@ Metadata:
       z: 0
       embeds: []
       dependson:
-        - 82b1401e-a882-4588-8d67-4f113341372d
+        - c5709a19-bfa2-4ed4-844a-8e062686b9cb
     c5709a19-bfa2-4ed4-844a-8e062686b9cb:
       size:
         width: 60
@@ -32,11 +32,36 @@ Metadata:
       embeds: []
       dependson:
         - 82b1401e-a882-4588-8d67-4f113341372d
+
 Resources:
+  S3NakedStaticWebsiteBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: test-bucket-jk234
+      WebsiteConfiguration:
+        #        ErrorDocument: error.html
+        #        IndexDocument: index.html
+        RedirectAllRequestsTo:
+          HostName: !Join
+            - ''
+            - - 'www.'
+              - ${Resources.S3NakedStaticWebsiteBucket.Properties.BucketName}
+      Tags:
+        - Key: Created By
+          Value: Thirumal
+        - Key: Created Using
+          Value: Cloud Formation
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: c5709a19-bfa2-4ed4-844a-8e062686b9cb
+
   S3StaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: www.test-bucket-jk23
+      BucketName: !Join
+        - ''
+        - - 'www.'
+          - !Ref S3NakedStaticWebsiteBucket
       WebsiteConfiguration:
         ErrorDocument: error.html
         IndexDocument: index.html
@@ -48,6 +73,8 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 82b1401e-a882-4588-8d67-4f113341372d
+    DependsOn:
+      - S3NakedStaticWebsiteBucket
   S3PublicAccessPolicy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:
@@ -68,17 +95,4 @@ Resources:
         id: ac57c9c7-fe46-4d39-a7ce-74a76948de6c
     DependsOn:
       - S3StaticWebsiteBucket
-  S3NakedStaticWebsiteBucket:
-    Type: 'AWS::S3::Bucket'
-    Properties:
-      BucketName: test-bucket-jk23
-      WebsiteConfiguration:
-#        ErrorDocument: error.html
-#        IndexDocument: index.html
-        RedirectAllRequestsTo:
-          HostName: !Ref S3StaticWebsiteBucket
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: c5709a19-bfa2-4ed4-844a-8e062686b9cb
-    DependsOn:
-      - S3StaticWebsiteBucket
+

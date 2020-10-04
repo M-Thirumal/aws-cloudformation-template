@@ -2,6 +2,8 @@
 
 Enter your bucket name in 
 
-    Resources > S3StaticWebsiteBucket > Properties > BucketName
+    Resources > S3NakedStaticWebsiteBucket > Properties > BucketName
   
 Remember bucket name is unique Globally
+
+[!Template Design](Template_Design.png)
