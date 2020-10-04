@@ -25,7 +25,15 @@ Resources:
   S3StaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: thirumal-test
+      BucketName: test-bucket-
+      WebsiteConfiguration:
+        ErrorDocument: error.html
+        IndexDocument: index.html
+      Tags:
+        - Key: "Created By"
+          Value: "Thirumal"
+        - Key: "Created Using"
+          Value: "Cloud Formation"
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 82b1401e-a882-4588-8d67-4f113341372d
@@ -49,3 +57,4 @@ Resources:
         id: ac57c9c7-fe46-4d39-a7ce-74a76948de6c
     DependsOn:
       - S3StaticWebsiteBucket
+
