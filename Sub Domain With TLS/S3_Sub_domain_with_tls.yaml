@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    881adc88-6b74-45e9-9321-73dcdeabe536:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 194
+        'y': 142
+      z: 0
+      embeds: []
+    cc784c95-7fcb-47da-b7c0-e90fd270f410:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 414
+        'y': 146
+      z: 0
+      embeds: []
+      dependson:
+        - 881adc88-6b74-45e9-9321-73dcdeabe536
+    caac174e-d424-47f8-a013-889b742933f1:
+      source:
+        id: cc784c95-7fcb-47da-b7c0-e90fd270f410
+      target:
+        id: 881adc88-6b74-45e9-9321-73dcdeabe536
+      z: 1
+Resources:
+  S3SubDomainBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: zzz.insolvencysoftware.in
+      WebsiteConfiguration:
+        ErrorDocument: error.html
+        IndexDocument: index.html
+      Tags:
+        - Key: Created By
+          Value: Thirumal
+        - Key: Created Using
+          Value: Cloud Formation
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 881adc88-6b74-45e9-9321-73dcdeabe536
+  S3SubDomainPublicAccessPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref S3SubDomainBucket
+      PolicyDocument:
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: Allow
+            Resource: !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref S3SubDomainBucket
+                  - /*
+            Principal: '*'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: cc784c95-7fcb-47da-b7c0-e90fd270f410
+    DependsOn:
+      - S3SubDomainBucket
