@@ -123,7 +123,7 @@ Resources:
   WebsiteInHostedZone:
     Type: 'AWS::Route53::HostedZone'
     Properties:
-      Name: !Ref S3WWWStaticWebsiteBucket
+      Name: !Ref S3NonWWWStaticWebsiteBucket
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 640de22f-55bf-475f-b395-c53310d40d93
