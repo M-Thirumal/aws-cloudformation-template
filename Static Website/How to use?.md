@@ -10,6 +10,6 @@ Enter your bucket name in
                 RedirectAllRequestsTo
                     HostName: {Bucket Name}
   
-Remember bucket name is unique Globally
+Remember bucket name is unique Globally. Once the stack is complete upload your static html files in to `WWW` bucket and add `name-server` in your service provider.
 
 ![Template Design](Template_Design.png)

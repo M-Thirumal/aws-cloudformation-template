@@ -1,11 +1,4 @@
 AWSTemplateFormatVersion: 2010-09-09
-# @Author Thirumal
-# It creates two bucket one with non-www and www bucket
-# Example:
-# example.com
-# www.example.com
-# Change the bucket name in S3NonWWWStaticWebsiteBucket Resource
-#
 Metadata:
   'AWS::CloudFormation::Designer':
     82b1401e-a882-4588-8d67-4f113341372d:
@@ -22,8 +15,8 @@ Metadata:
         width: 60
         height: 60
       position:
-        x: 420
-        'y': 200
+        x: 370
+        'y': 70
       z: 0
       embeds: []
       dependson:
@@ -45,23 +38,40 @@ Metadata:
         width: 140
         height: 140
       position:
-        x: 687
-        'y': 73
+        x: 400
+        'y': 210
       z: 0
       embeds: []
       dependson:
         - ac57c9c7-fe46-4d39-a7ce-74a76948de6c
+    f7fa9935-58c3-47c4-bce1-1dfc87f57a81:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 570
+        'y': 110
+      z: 0
+      embeds: []
+      dependson:
+        - 640de22f-55bf-475f-b395-c53310d40d93
+    779f64fc-6d4f-4acf-a073-8de88cf6267f:
+      source:
+        id: f7fa9935-58c3-47c4-bce1-1dfc87f57a81
+      target:
+        id: 640de22f-55bf-475f-b395-c53310d40d93
+      z: 11
 Resources:
   S3NonWWWStaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: bucket-name-002
+      BucketName: bucket-name-004
       WebsiteConfiguration:
         RedirectAllRequestsTo:
           HostName: !Join
             - ''
             - - www.
-              - bucket-name-002
+              - bucket-name-004
       Tags:
         - Key: Created By
           Value: Thirumal
@@ -110,15 +120,28 @@ Resources:
         id: ac57c9c7-fe46-4d39-a7ce-74a76948de6c
     DependsOn:
       - S3WWWStaticWebsiteBucket
-#  WebsiteInHostedZone:
-#    Type: 'AWS::Route53::HostedZone'
+  WebsiteInHostedZone:
+    Type: 'AWS::Route53::HostedZone'
+    Properties:
+      Name: !Ref S3WWWStaticWebsiteBucket
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 640de22f-55bf-475f-b395-c53310d40d93
+    DependsOn:
+      - S3PublicAccessPolicy
+#  ARecord:
+#    Type: 'AWS::Route53::RecordSet'
 #    Properties:
-#      Name: !Join
-#        - ''
-#        - - www.
-#          - !Ref S3NonWWWStaticWebsiteBucket
+#      Name: S3WWWStaticWebsiteBucket
+#      AliasTarget:
+#        DNSName: 's3-website.ap-south-1.amazonaws.com'
+#        EvaluateTargetHealth: false
+#        HostedZoneId: !Ref WebsiteInHostedZone
+#      Type: A
+#      HostedZoneId: !Ref WebsiteInHostedZone
+#      TTL: '900'
 #    Metadata:
 #      'AWS::CloudFormation::Designer':
-#        id: 640de22f-55bf-475f-b395-c53310d40d93
+#        id: f7fa9935-58c3-47c4-bce1-1dfc87f57a81
 #    DependsOn:
-#      - S3PublicAccessPolicy
+#      - WebsiteInHostedZone
