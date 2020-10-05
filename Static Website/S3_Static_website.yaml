@@ -65,13 +65,13 @@ Resources:
   S3NonWWWStaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: bucket-name-004
+      BucketName: bucketi-namoiwee-005.com
       WebsiteConfiguration:
         RedirectAllRequestsTo:
           HostName: !Join
             - ''
             - - www.
-              - bucket-name-004
+              - bucketi-namoiwee-005.com
       Tags:
         - Key: Created By
           Value: Thirumal
