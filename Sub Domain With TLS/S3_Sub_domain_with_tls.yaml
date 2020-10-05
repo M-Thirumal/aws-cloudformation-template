@@ -105,8 +105,11 @@ Resources:
 #          S3OriginConfig:
 #            S3OriginConfig
         ViewerCertificate:
-          ViewerCertificate
-        WebACLId: String
+          AcmCertificateArn: String
+          CloudFrontDefaultCertificate: false
+          IamCertificateId: String
+          MinimumProtocolVersion: TLSv1.2_2019
+          SslSupportMethod: sni-only
     Metadata:
       'AWS::CloudFormation::Designer':
         id: c527befd-a5ce-4e29-a662-bc951d668878
