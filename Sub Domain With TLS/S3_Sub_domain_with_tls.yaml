@@ -1,3 +1,5 @@
+# Builder
+# Thirumal: https://twitter.com/_Thirumal
 AWSTemplateFormatVersion: 2010-09-09
 Metadata:
   'AWS::CloudFormation::Designer':
@@ -78,36 +80,49 @@ Resources:
     Type: 'AWS::CloudFront::Distribution'
     Properties:
       DistributionConfig:
-        CacheBehaviors:
+        DefaultCacheBehavior:
           AllowedMethods:
-            - GET
-            - HEAD
-            - OPTIONS
+             - GET
+             - HEAD
+             - OPTIONS
           CachedMethods:
-            - GET
-            - HEAD
-          PathPattern: /*
-          TargetOriginId: !Ref S3SubDomainBucket
+             - GET
+             - HEAD
+          TargetOriginId: !Ref 'S3SubDomainBucket'
           ViewerProtocolPolicy: redirect-to-https
+#        CacheBehaviors:
+#          AllowedMethods:
+#             - GET
+#             - HEAD
+#             - OPTIONS
+#          CachedMethods:
+#             - GET
+#             - HEAD
+#          PathPattern: /*
+#          TargetOriginId: !Ref 'S3SubDomainBucket'
+#          ViewerProtocolPolicy: redirect-to-https
         Comment: Sub Domain created by cloud formation
         Enabled: yes
         HttpVersion: http2
         IPV6Enabled: yes
-        OriginGroups:
-          OriginGroups
+#        OriginGroups:
+#          OriginGroups
         Origins:
-          CustomOriginConfig:
-            OriginProtocolPolicy: https-only
-            OriginSSLProtocols:
-              - TLSv1.2
-          DomainName: !GetAtt S3SubDomainBucket.WebsiteURL
-          Id: !GetAtt S3SubDomainBucket.WebsiteURL
-#          S3OriginConfig:
-#            S3OriginConfig
+          - DomainName: !Join
+              - ''
+              - - !Ref 'S3SubDomainBucket'
+                - '.s3-website.ap-south-1.amazonaws.com'
+            Id: !Ref 'S3SubDomainBucket'
+            CustomOriginConfig:
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols:
+                - TLSv1.2
+#          - S3OriginConfig:
+#             S3OriginConfig
         ViewerCertificate:
-          AcmCertificateArn: String
-          CloudFrontDefaultCertificate: false
-          IamCertificateId: String
+          AcmCertificateArn: arn:aws:acm:us-east-1:597991982472:certificate/b4e34784-11fc-4c34-b75b-7135ac46c817
+#          CloudFrontDefaultCertificate: false
+#          IamCertificateId: String
           MinimumProtocolVersion: TLSv1.2_2019
           SslSupportMethod: sni-only
     Metadata:
