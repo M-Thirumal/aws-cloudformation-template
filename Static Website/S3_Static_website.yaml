@@ -1,3 +1,6 @@
+# Builder
+# @author Thirumal
+# @Created on 07/10/2020
 AWSTemplateFormatVersion: 2010-09-09
 Metadata:
   'AWS::CloudFormation::Designer':
@@ -61,17 +64,27 @@ Metadata:
       target:
         id: 640de22f-55bf-475f-b395-c53310d40d93
       z: 11
+
+Parameters:
+  bucketName:
+    Description: Static Website / Bucket Name
+    Type: String
+
+Mappings:
+  bucket:
+    nonWwwBucket:
+      name: bucketi-namoiwee-005.com
 Resources:
   S3NonWWWStaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: bucketi-namoiwee-005.com
+      BucketName: !Ref 'bucketName'
       WebsiteConfiguration:
         RedirectAllRequestsTo:
           HostName: !Join
             - ''
             - - www.
-              - bucketi-namoiwee-005.com
+              - !Ref 'bucketName'
       Tags:
         - Key: Created By
           Value: Thirumal
