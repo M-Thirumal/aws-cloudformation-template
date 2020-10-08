@@ -96,6 +96,10 @@ Resources:
              - HEAD
           TargetOriginId: !Ref 'S3SubDomainBucket'
           ViewerProtocolPolicy: redirect-to-https
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: none
 #        CacheBehaviors:
 #          AllowedMethods:
 #             - GET
