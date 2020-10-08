@@ -40,11 +40,16 @@ Metadata:
       target:
         id: cc784c95-7fcb-47da-b7c0-e90fd270f410
       z: 11
+Parameters:
+  bucketName:
+    Description: Static Website / Bucket Name
+    Type: String
+
 Resources:
   S3SubDomainBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: zzz.insolvencysoftware.in
+      BucketName: !Ref 'bucketName'
       WebsiteConfiguration:
         ErrorDocument: error.html
         IndexDocument: index.html
