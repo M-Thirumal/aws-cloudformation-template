@@ -7,5 +7,5 @@ AWS Cloudformation handy templates
 
 # Diagram
 
-1. ![Host static Website in S3](./Static%20Website/Template_Design.png) 
-2. ![Host static sub-domain with existing TLS](./Sub%20Domain%20With%20TLS/Template%20Design.png)
+ ![Host static Website in S3](./Static%20Website/Template_Design.png) 
+ ![Host static sub-domain with existing TLS](./Sub%20Domain%20With%20TLS/Template%20Design.png)
