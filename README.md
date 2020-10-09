@@ -2,3 +2,10 @@
 AWS Cloudformation handy templates
 
 1. [Host static Website in S3](./Static%20Website/S3_Static_website.yaml) 
+2. [Host static sub-domain with existing TLS](./Sub Domain With TLS/S3_Sub_domain_with_tls.yaml)
+
+
+# Diagram
+
+1. [Host static Website in S3](./Static%20Website/Template_Design.png) 
+2. [Host static sub-domain with existing TLS](./Sub Domain With TLS/Template Design.png)
