@@ -44,32 +44,23 @@ Metadata:
         x: 400
         'y': 210
       z: 0
-      embeds: []
+      embeds:
+        - 60bd4cf8-7406-4a1e-b9bc-a45ddf051058
       dependson:
         - ac57c9c7-fe46-4d39-a7ce-74a76948de6c
-    f7fa9935-58c3-47c4-bce1-1dfc87f57a81:
+    60bd4cf8-7406-4a1e-b9bc-a45ddf051058:
       size:
         width: 60
         height: 60
       position:
-        x: 570
-        'y': 110
-      z: 0
-      embeds: []
-      dependson:
-        - 640de22f-55bf-475f-b395-c53310d40d93
-    779f64fc-6d4f-4acf-a073-8de88cf6267f:
-      source:
-        id: f7fa9935-58c3-47c4-bce1-1dfc87f57a81
-      target:
-        id: 640de22f-55bf-475f-b395-c53310d40d93
-      z: 11
-
+        x: 446.95572295336916
+        'y': 255.98893816829448
+      z: 1
+      parent: 640de22f-55bf-475f-b395-c53310d40d93
 Parameters:
   bucketName:
     Description: Static Website / Bucket Name
     Type: String
-
 Mappings:
   bucket:
     nonWwwBucket:
@@ -78,13 +69,13 @@ Resources:
   S3NonWWWStaticWebsiteBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Ref 'bucketName'
+      BucketName: !Ref bucketName
       WebsiteConfiguration:
         RedirectAllRequestsTo:
           HostName: !Join
             - ''
             - - www.
-              - !Ref 'bucketName'
+              - !Ref bucketName
       Tags:
         - Key: Created By
           Value: Thirumal
@@ -118,6 +109,7 @@ Resources:
     Properties:
       Bucket: !Ref S3WWWStaticWebsiteBucket
       PolicyDocument:
+        Version: '2012-10-17'
         Statement:
           - Action:
               - 's3:GetObject'
@@ -142,19 +134,22 @@ Resources:
         id: 640de22f-55bf-475f-b395-c53310d40d93
     DependsOn:
       - S3PublicAccessPolicy
-#  ARecord:
-#    Type: 'AWS::Route53::RecordSet'
-#    Properties:
-#      Name: S3WWWStaticWebsiteBucket
-#      AliasTarget:
-#        DNSName: 's3-website.ap-south-1.amazonaws.com'
-#        EvaluateTargetHealth: false
-#        HostedZoneId: !Ref WebsiteInHostedZone
-#      Type: A
-#      HostedZoneId: !Ref WebsiteInHostedZone
-#      TTL: '900'
-#    Metadata:
-#      'AWS::CloudFormation::Designer':
-#        id: f7fa9935-58c3-47c4-bce1-1dfc87f57a81
-#    DependsOn:
-#      - WebsiteInHostedZone
+  R53RSS3ARecord:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      Name: !Ref S3WWWStaticWebsiteBucket
+      AliasTarget:
+        DNSName: s3-website.ap-south-1.amazonaws.com # Must be just regional S3 website end point
+        EvaluateTargetHealth: true
+        HostedZoneId: !Ref WebsiteInHostedZone
+      Type: A
+      HostedZoneId: !Ref WebsiteInHostedZone
+      #TTL: '900'
+#      ResourceRecords:
+#        - !Join
+#          - ''
+#          - - !Ref S3WWWStaticWebsiteBucket
+#            - .s3-website.ap-south-1.amazonaws.com
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 60bd4cf8-7406-4a1e-b9bc-a45ddf051058
