@@ -140,7 +140,7 @@ Resources:
       Name: !Ref S3WWWStaticWebsiteBucket
       AliasTarget:
         DNSName: s3-website.ap-south-1.amazonaws.com # Must be just regional S3 website end point
-        EvaluateTargetHealth: true
+        EvaluateTargetHealth: false
         HostedZoneId: !Ref WebsiteInHostedZone
       Type: A
       HostedZoneId: !Ref WebsiteInHostedZone
