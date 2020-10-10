@@ -115,7 +115,7 @@ Resources:
             QueryString: false
             Cookies:
               Forward: none
-        Comment: Sub Domain created by cloud formation
+        Comment: Sub Domain created using cloud formation which is build by Thirumal
         Enabled: yes
         HttpVersion: http2
         IPV6Enabled: yes
@@ -125,6 +125,8 @@ Resources:
               - - !Ref S3SubDomainBucket
                 - .s3-website.ap-south-1.amazonaws.com
             Id: !Ref S3SubDomainBucket
+#            S3OriginConfig:
+#              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}
             CustomOriginConfig:
               OriginProtocolPolicy: https-only
               OriginSSLProtocols:
@@ -139,6 +141,11 @@ Resources:
         id: c527befd-a5ce-4e29-a662-bc951d668878
     DependsOn:
       - S3SubDomainPublicAccessPolicy
+#  CloudFrontOriginAccessIdentity:
+#    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+#    Properties:
+#      CloudFrontOriginAccessIdentityConfig:
+#        Comment: !Sub ${AWS::StackName}
   R53CNameForSubDomain:
     Type: 'AWS::Route53::RecordSet'
     Properties:
@@ -154,3 +161,4 @@ Resources:
         id: 75a65570-b59a-462c-b536-88de6742aa3d
     DependsOn:
       - CFSubDomainDistribution
+

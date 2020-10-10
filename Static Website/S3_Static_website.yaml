@@ -137,7 +137,7 @@ Resources:
   R53RSS3ARecord:
     Type: 'AWS::Route53::RecordSet'
     Properties:
-      Name: !Ref S3WWWStaticWebsiteBucket
+      Name: !Ref bucketName
       AliasTarget:
         DNSName: s3-website.ap-south-1.amazonaws.com # Must be just regional S3 website end point
         EvaluateTargetHealth: false
