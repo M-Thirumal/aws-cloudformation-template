@@ -124,6 +124,9 @@ Resources:
               - ''
               - - !Ref S3SubDomainBucket
                 - .s3-website.ap-south-1.amazonaws.com
+#            Id: !Sub
+#              - S3-Website-${BucketName}.s3-website.ap-south-1.amazonaws.com
+#              - { BucketName: !Ref S3SubDomainBucket }
             Id: !Ref S3SubDomainBucket
 #            S3OriginConfig:
 #              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}
