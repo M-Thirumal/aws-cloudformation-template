@@ -136,7 +136,7 @@ Resources:
                 - TLSv1.2
         Aliases: [ !Ref bucketName ]
         ViewerCertificate:
-          AcmCertificateArn: arn:aws:acm:us-east-1:597991982472:certificate/b4e34784-11fc-4c34-b75b-7135ac46c817
+          AcmCertificateArn: arn:aws:acm:us-east-1:597991982472:certificate/67ae10b6-0c4d-4dd4-922c-f86b66a0d343
           MinimumProtocolVersion: TLSv1.2_2019
           SslSupportMethod: sni-only
     Metadata:
@@ -155,7 +155,7 @@ Resources:
       Name: !Ref S3SubDomainBucket
       Type: CNAME
       #HostedZoneName: !Join ['', [!Ref 'HostedZone', .]]
-      HostedZoneId: Z08340141ZQLKPW4JWOKC
+      HostedZoneId: Z09199022RMGGGVGSVLFA
       TTL: '900'
       ResourceRecords:
         - !GetAtt CFSubDomainDistribution.DomainName
@@ -164,4 +164,3 @@ Resources:
         id: 75a65570-b59a-462c-b536-88de6742aa3d
     DependsOn:
       - CFSubDomainDistribution
-
